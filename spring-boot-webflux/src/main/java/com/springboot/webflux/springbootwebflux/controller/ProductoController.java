@@ -87,6 +87,13 @@ public class ProductoController {
 		
 	}
 	
+	@GetMapping("/eliminar/{id}")
+	public Mono<String> eliminar(@PathVariable String id) {
+		return productoService.findById(id)
+				.flatMap(p -> {return productoService.delete(p);})
+				.then(Mono.just("redirect:/listar?success=producto+eliminado+con+exito"));
+	}
+	
 	@GetMapping("/listarDataDriver")
 	public String listarDataDriver(Model model) {	// ReactiveDataDriver - Trabajar la contrapresión, 
 													// cuando recibimos una gran cantidad de elementos
