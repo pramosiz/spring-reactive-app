@@ -30,11 +30,17 @@ public class Producto {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
+	
+	private Categoria categoria;
 
 	public Producto(String nombre, Double precio) {
-		super();
 		this.nombre = nombre;
 		this.precio = precio;
+	}
+
+	public Producto(@NotEmpty String nombre, @NotNull Double precio, Categoria categoria) {
+		this(nombre, precio);
+		this.categoria = categoria;
 	}
 
 }

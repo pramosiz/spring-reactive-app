@@ -4,7 +4,9 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.webflux.springbootwebflux.dao.CategoriaDao;
 import com.springboot.webflux.springbootwebflux.dao.ProductoDao;
+import com.springboot.webflux.springbootwebflux.entity.Categoria;
 import com.springboot.webflux.springbootwebflux.entity.Producto;
 import com.springboot.webflux.springbootwebflux.service.ProductoService;
 
@@ -16,6 +18,9 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Autowired
 	private ProductoDao productoDao;
+	
+	@Autowired
+	private CategoriaDao categoriaDao;
 	 
 	@Override
 	public Flux<Producto> findAll() {
@@ -35,6 +40,21 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	public Mono<Void> delete(Producto producto) {
 		return productoDao.delete(producto);
+	}
+
+	@Override
+	public Flux<Categoria> findAllCategoria() {
+		return categoriaDao.findAll();
+	}
+
+	@Override
+	public Mono<Categoria> findCategoriaById(String id) {
+		return categoriaDao.findById(new ObjectId(id));
+	}
+
+	@Override
+	public Mono<Categoria> saveCategoria(Categoria categoria) {
+		return categoriaDao.save(categoria);
 	}
 
 }
