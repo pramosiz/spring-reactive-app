@@ -10,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.thymeleaf.spring6.context.webflux.ReactiveDataDriverContextVariable;
 
+import com.springboot.webflux.springbootwebflux.entity.Categoria;
 import com.springboot.webflux.springbootwebflux.entity.Producto;
 import com.springboot.webflux.springbootwebflux.service.ProductoService;
 
@@ -29,6 +31,11 @@ public class ProductoController {
 	private ProductoService productoService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductoController.class);
+	
+	@ModelAttribute("categorias")
+	public Flux<Categoria> categorias() {
+		return productoService.findAllCategoria();
+	}
 	
 	@GetMapping({"/listar", "/"})
 	public Mono<String> listar(Model model) {
@@ -69,19 +76,28 @@ public class ProductoController {
 	
 	@PostMapping("/form")
 	public Mono<String> guardar(@Valid Producto producto, BindingResult result, 
-			SessionStatus status, Model model) {		// Estos atributos deben ir juntos siempre, el orden importa
+			SessionStatus status, Model model) {		// Estos atributos deben ir juntos siempre, el orden importa BindingResult, SessionStatus
 		
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Errores en formulario producto");
 			model.addAttribute("boton", "Guardar");
 			return Mono.just("/form");
 		} else {
+			
 			status.setComplete();
-			if(producto.getCreateAt() == null) {
-				producto.setCreateAt(new Date());
-			}
-			return productoService.save(producto)
-			.doOnNext(p -> LOGGER.info("Producto guardado: {}  ID: {}", p.getNombre(), p.getId()))
+			Mono<Categoria> categoria = productoService.findCategoriaById(producto.getCategoria().getId().toString());
+			
+			return categoria.flatMap(c -> {
+				if(producto.getCreateAt() == null) {
+					producto.setCreateAt(new Date());
+				}
+				producto.setCategoria(c);
+				return productoService.save(producto);
+			})
+			.doOnNext(p -> {
+				LOGGER.info("Categoria asignada: {}  ID Cat.: {}", p.getCategoria().getNombre(), p.getCategoria().getId());
+				LOGGER.info("Producto guardado: {}  ID: {}", p.getNombre(), p.getId());
+			})
 			.thenReturn("redirect:/listar?success=producto+guardado+con+exito");
 		}
 		

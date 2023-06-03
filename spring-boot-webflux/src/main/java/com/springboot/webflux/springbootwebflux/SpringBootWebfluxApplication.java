@@ -12,7 +12,7 @@ import java.util.Date;
 
 import com.springboot.webflux.springbootwebflux.entity.Categoria;
 import com.springboot.webflux.springbootwebflux.entity.Producto;
-import com.springboot.webflux.springbootwebflux.service.impl.ProductoServiceImpl;
+import com.springboot.webflux.springbootwebflux.service.ProductoService;
 
 import reactor.core.publisher.Flux;
 
@@ -20,7 +20,7 @@ import reactor.core.publisher.Flux;
 public class SpringBootWebfluxApplication implements CommandLineRunner{
 
 	@Autowired
-	private ProductoServiceImpl productoServiceImpl;
+	private ProductoService productoService;
 	
 	@Autowired
 	private ReactiveMongoTemplate reactiveMongoTemplate;
@@ -45,7 +45,7 @@ public class SpringBootWebfluxApplication implements CommandLineRunner{
 		Categoria muebles = new Categoria("Muebles");
 		
 		Flux.just(electronico, deporte, computacion, muebles)
-			.flatMap(productoServiceImpl::saveCategoria)
+			.flatMap(productoService::saveCategoria)
 			.doOnNext(c -> {
 				LOGGER.info("Categoría creada: {}, ID: {}", c.getNombre(), c.getId());
 			})
@@ -62,7 +62,7 @@ public class SpringBootWebfluxApplication implements CommandLineRunner{
 							)
 					.flatMap(producto -> {
 						producto.setCreateAt(new Date());
-						return productoServiceImpl.save(producto);
+						return productoService.save(producto);
 					})
 					.doOnNext(producto -> LOGGER.info("Insert: {} {}", producto.getId(), producto.getNombre()))
 					)

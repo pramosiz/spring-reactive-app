@@ -2,12 +2,11 @@ package com.springboot.webflux.springbootwebflux.entity;
 
 import java.util.Date;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -19,8 +18,7 @@ import lombok.NoArgsConstructor;
 public class Producto {
 	
 	@Id
-	@Field("_id")
-	private ObjectId id;
+	private String id;
 	
 	@NotEmpty
 	private String nombre;
@@ -31,6 +29,7 @@ public class Producto {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
 	
+	@Valid
 	private Categoria categoria;
 
 	public Producto(String nombre, Double precio) {
@@ -38,7 +37,7 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public Producto(@NotEmpty String nombre, @NotNull Double precio, Categoria categoria) {
+	public Producto(@NotEmpty String nombre, @NotNull Double precio, @Valid Categoria categoria) {
 		this(nombre, precio);
 		this.categoria = categoria;
 	}

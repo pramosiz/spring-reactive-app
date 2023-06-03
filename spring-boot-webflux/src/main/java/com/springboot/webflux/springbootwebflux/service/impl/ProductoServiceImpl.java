@@ -29,7 +29,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	public Mono<Producto> findById(String id) {
-		return productoDao.findById(new ObjectId(id));
+		return productoDao.findById(id);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	public Mono<Categoria> findCategoriaById(String id) {
-		return categoriaDao.findById(new ObjectId(id));
+		return categoriaDao.findById(id);
 	}
 
 	@Override

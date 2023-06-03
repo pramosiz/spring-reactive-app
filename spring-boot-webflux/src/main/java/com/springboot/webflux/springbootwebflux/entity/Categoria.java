@@ -1,9 +1,9 @@
 package com.springboot.webflux.springbootwebflux.entity;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class Categoria {
 
 	@Id
-	private ObjectId id;
+	@NotEmpty
+	private String id;
 	
 	private String nombre;
 
