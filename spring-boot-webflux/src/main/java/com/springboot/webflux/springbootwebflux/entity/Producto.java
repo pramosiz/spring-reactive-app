@@ -6,7 +6,10 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,10 +22,13 @@ public class Producto {
 	@Field("_id")
 	private ObjectId id;
 	
+	@NotEmpty
 	private String nombre;
 	
+	@NotNull
 	private Double precio;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
 
 	public Producto(String nombre, Double precio) {
