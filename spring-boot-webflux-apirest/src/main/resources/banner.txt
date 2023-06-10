@@ -1,0 +1,16 @@
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+
+ App Name: ${application.name} - App Version: ${application.version}
+ App Description: ${application.description}
+ Java Version: ${info.app.java.source} - Enconding: ${info.app.encoding}
+ Maven Version: ${info.app.maven.source}
+ SpringBoot Version: ${spring-boot.version} | ${spring-boot.formatted-version}
+ Flyway Path: ${spring.flyway.locations}
+ Database: ${spring.data.mongodb.host}:${spring.data.mongodb.port} | Schema: ${spring.data.mongodb.database}
+ Server Port: ${server.port}
