@@ -1,6 +1,5 @@
 package com.springboot.webflux.springbootwebfluxapirest.service.impl;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +54,14 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	public Mono<Categoria> saveCategoria(Categoria categoria) {
 		return categoriaRepository.save(categoria);
+	}
+	
+	public Mono<Producto> findByNombre(String nombre) {
+		return productoRepository.findByNombre(nombre);
+	}
+	
+	public Mono<Categoria> findCategoriaByNombre(String nombre) {
+		return categoriaRepository.findByNombre(nombre);
 	}
 
 }
