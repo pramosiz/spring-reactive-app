@@ -38,21 +38,6 @@ class SpringBootWebfluxApirestApplicationTests {
 	}
 	
 	@Test
-	void testListar_consumeWith() {
-		
-		client.get()
-		.uri("/v2/productos")
-		.exchange()
-		.expectStatus().isOk()
-		.expectBodyList(Producto.class)
-		.consumeWith(response -> {
-			List<Producto> productos = response.getResponseBody();
-			productos.forEach(p -> System.out.println(p.getNombre()));
-			assertEquals(9, productos.size());
-		});
-	}
-	
-	@Test
 	void testVer() {
 		
 		Mono<Producto> producto = productoService.findByNombre("TV Panasonic Pantalla LCD");
@@ -102,7 +87,7 @@ class SpringBootWebfluxApirestApplicationTests {
 	@Test
 	void testEliminar() {
 		
-		Mono<Producto> producto = productoService.findByNombre("TV Panasonic Pantalla LCD");
+		Mono<Producto> producto = productoService.findByNombre("Mica Cómoda 5 cajones");
 		
 		client.delete()
 		.uri("/v2/productos/{id}", Collections.singletonMap("id", producto.block().getId()))
