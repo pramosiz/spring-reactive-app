@@ -6,7 +6,7 @@
  =========|_|==============|___/=/_/_/_/
 
 
- App Name: ${application.name} - App Version: ${application.version}
+ App Name: ${spring.application.name} - App Version: ${application.version}
  App Description: ${application.description}
  Java Version: ${info.app.java.source} - Enconding: ${info.app.encoding}
  Maven Version: ${info.app.maven.source}

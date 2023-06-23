@@ -19,11 +19,11 @@ import reactor.core.publisher.Mono;
 public class ProductoServiceImpl implements ProductoService {
 
 	@Autowired
-	private WebClient client;
+	private WebClient.Builder client;
 	
 	@Override
 	public Flux<ProductoDTO> findAll() {
-		return client.get()
+		return client.build().get()
 				.retrieve()
 				.bodyToFlux(ProductoDTO.class);
 	}
@@ -33,7 +33,7 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", id);
-		return client.get()
+		return client.build().get()
 				.uri("/{id}", params)
 				.retrieve()
 				.bodyToMono(ProductoDTO.class);
@@ -41,7 +41,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	public Mono<ProductoDTO> save(ProductoDTO productoDTO) {
-		return client.post()
+		return client.build().post()
 				.body(BodyInserters.fromValue(productoDTO))
 				.retrieve()
 				.bodyToMono(ProductoDTO.class);
@@ -49,7 +49,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	public Mono<ProductoDTO> update(ProductoDTO productoDTO, String id) {
-		return client.put()
+		return client.build().put()
 				.uri("/{id}", Collections.singletonMap("id", id))
 				.body(BodyInserters.fromValue(productoDTO))
 				.retrieve()
@@ -58,7 +58,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	public Mono<Void> delete(String id) {
-		return client.delete()
+		return client.build().delete()
 				.uri("/{id}", Collections.singletonMap("id", id))
 				.retrieve()
 				.bodyToMono(Void.class);
