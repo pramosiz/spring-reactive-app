@@ -1,6 +1,9 @@
-Spring boot application with this tecnologies:
+# Spring boot Apps with this technologies
 
+- Layered Architecture
 - MongoDB
 - WebFlux
 - Thymeleaf
 - Rest
+- DAO
+- Eureka Server

@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Reactor App",
+            "request": "launch",
+            "mainClass": "com.springboot.reactor.springbootreactor.app.SpringBootReactorApplication",
+            "projectName": "com.springboot.reactor-spring-boot-reactor"
+        },
+        {
+            "type": "java",
+            "name": "Webflux App",
+            "request": "launch",
+            "mainClass": "com.springboot.webflux.springbootwebflux.SpringBootWebfluxApplication",
+            "projectName": "com.springboot.webflux-spring-boot-webflux"
+        },
+        {
+            "type": "java",
+            "name": "Webflux API Rest App",
+            "request": "launch",
+            "mainClass": "com.springboot.webflux.springbootwebfluxapirest.SpringBootWebfluxApirestApplication",
+            "projectName": "com.springboot.webflux.apirest-demo"
+        },
+        {
+            "type": "java",
+            "name": "Webflux Client App",
+            "request": "launch",
+            "mainClass": "com.springboot.webflux.client.SpringbootWebfluxClientApplication",
+            "projectName": "com.springboot.webflux.client-demo"
+        },
+        {
+            "type": "java",
+            "name": "Webflux Eureka App",
+            "request": "launch",
+            "mainClass": "com.springboot.webflux.eureka.SpringbootWebfluxEurekaApplication",
+            "projectName": "com.springboot.webflux.eureka-demo"
+        }
+    ]
+}
